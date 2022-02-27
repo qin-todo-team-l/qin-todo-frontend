@@ -2,9 +2,9 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from 'styles/Home.module.css';
-import { Header } from 'pages/component/Header';
-import { Footer } from 'pages/component/Footer';
-import { Body } from 'pages/component/Body';
+import { Header } from 'pages/components/Header';
+import { Footer } from 'pages/components/Footer';
+import { Body } from 'pages/components/Body';
 
 const Home: NextPage = () => {
   return (
