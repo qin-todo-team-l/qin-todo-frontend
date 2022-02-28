@@ -5,8 +5,27 @@ import styles from 'styles/Home.module.css';
 import { Header } from 'pages/component/Header';
 import { Footer } from 'pages/component/Footer';
 import { Body } from 'pages/component/Body';
+import { TodosList } from './component/TodosList/TodosList';
 
 const Home: NextPage = () => {
+  const todosList = [
+    {
+      title: '今日する',
+      category: 'today',
+      todos: ['ESLintのインストール'],
+    },
+    {
+      title: '明日する',
+      category: 'tomorrow',
+      todos: ['来週の飲み会の場所を決める', 'Next.jsのチュートリアルを見る'],
+    },
+    {
+      title: '今度する',
+      category: 'next time',
+      todos: [],
+    },
+  ];
+
   return (
     <div className={styles.container}>
       <Head>
@@ -15,7 +34,11 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header></Header>
-      <Body>body</Body>
+
+      <Body>
+        <TodosList todosList={todosList} />
+      </Body>
+
       <Footer></Footer>
     </div>
   );
