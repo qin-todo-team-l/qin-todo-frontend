@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface Props {
-  children: string;
+  children: ReactNode;
 }
 
 export const Body: React.VFC<Props> = ({ children }) => {
