@@ -9,10 +9,8 @@ export const Todo: React.VFC<Props> = ({ todo }) => {
 
   return (
     <div>
-      <input type='checkbox' className='pointer-events-none' checked={active} />
-      <button className={`${active ? 'line-through' : undefined}`} onClick={() => setActive((prev) => !prev)}>
-        {todo}
-      </button>
+      <input type='checkbox' onChange={() => setActive((prev) => !prev)} />
+      <button className={`${active ? 'line-through' : undefined}`}>{todo}</button>
     </div>
   );
 };
