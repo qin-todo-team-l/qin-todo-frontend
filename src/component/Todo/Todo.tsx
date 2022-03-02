@@ -38,7 +38,7 @@ export const Todo: React.VFC<Props> = ({ todo }) => {
         <span className={active ? 'line-through' : ''}>{todo}</span>
       </div>
       <div className='relative overflow-hidden'>
-        <button className='bg-red-500 text-white px-2'>削除</button>
+        <div className='bg-red-500 text-white px-2'>削除</div>
         <div
           className={`${
             open && !focus ? '-translate-x-full' : ''
