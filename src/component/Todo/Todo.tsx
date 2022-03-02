@@ -25,26 +25,20 @@ export const Todo: React.VFC<Props> = ({ todo }) => {
   });
 
   return (
-    <button
-      {...handlers}
-      className={`${focus ? 'bg-yellow-50' : ''} grid grid-flow-col justify-between  w-full `}
-      onClick={() => {
-        setFocus((prev) => !prev);
-        setOpen(false);
-      }}
-    >
-      <div>
+    <div className={`${focus ? 'bg-yellow-100' : ''} grid grid-flow-col justify-between  w-full relative`}>
+      <button
+        {...handlers}
+        onClick={() => {
+          setFocus((prev) => !prev);
+          setOpen(false);
+        }}
+      >
         <input type='checkbox' onChange={() => setActive((prev) => !prev)} />
         <span className={active ? 'line-through' : ''}>{todo}</span>
+      </button>
+      <div className={`relative overflow-hidden transition-all duration-200 ${open && !focus ? 'w-12' : 'w-0'}`}>
+        <button className='bg-red-500 text-white px-2 whitespace-nowrap'>削除</button>
       </div>
-      <div className='relative overflow-hidden'>
-        <div className='bg-red-500 text-white px-2'>削除</div>
-        <div
-          className={`${
-            open && !focus ? '-translate-x-full' : ''
-          } bg-white absolute top-0 left-0 w-full h-full transition-transform duration-200`}
-        ></div>
-      </div>
-    </button>
+    </div>
   );
 };
