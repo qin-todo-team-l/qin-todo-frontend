@@ -1,4 +1,5 @@
 import React from 'react';
+import { Todo } from 'component/Todo';
 
 interface Props {
   todosList: {
@@ -17,7 +18,7 @@ export const TodosList: React.VFC<Props> = ({ todosList }) => {
           <ul>
             {todosItem.todos.map((todo, index) => (
               <li key={index}>
-                <button>{todo}</button>
+                <Todo todo={todo} />
               </li>
             ))}
             {/* タスクが一個以上で非表示にするクラスをつける PCは常に表示 */}
