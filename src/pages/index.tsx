@@ -62,6 +62,12 @@ const Home: NextPage = () => {
     setText('');
   };
 
+  const remove = (index: number): void => {
+    const newTodow = [...todos];
+    newTodow.splice(index, 1);
+    setTodos(newTodow);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -77,10 +83,13 @@ const Home: NextPage = () => {
         <TodosList todosList={todosList} /> */}
 
         <ul>
-          {todos.map((todo) => (
+          {todos.map((todo, index) => (
             <li key={todo.id}>
               <input type='checkbox' value={todo.id} onChange={toggle} checked={todo.isDone} />
               <button>{todo.label}</button>
+              <button className='border border-red-500' onClick={() => remove(index)}>
+                削除
+              </button>
             </li>
           ))}
         </ul>
