@@ -5,13 +5,18 @@ import { Header } from 'component/Header';
 import { Footer } from 'component/Footer';
 import { Body } from 'component/Body';
 import { TodosList } from 'component/TodosList';
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, useRef, useState } from 'react';
 
 interface Todos {
   id: number;
   label: string;
   isDone: boolean;
 }
+
+type Update = {
+  update: boolean;
+  id: number;
+};
 
 const Home: NextPage = () => {
   // 破棄予定
@@ -33,8 +38,10 @@ const Home: NextPage = () => {
   //   },
   // ];
 
+  const ref = useRef<HTMLInputElement>(null);
   const [text, setText] = useState('');
   const [todos, setTodos] = useState<Todos[]>([]);
+  const [updateButton, setUpdateButton] = useState<Update>({ update: false, id: 0 });
 
   const toggle: ChangeEventHandler<HTMLInputElement> = (e) => {
     setTodos((prevTodos) => {
@@ -68,6 +75,35 @@ const Home: NextPage = () => {
     setTodos(newTodow);
   };
 
+  const edit = (id: number): void => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((prevTodo) => {
+        if (prevTodo.id === id) {
+          ref.current?.focus();
+          setText(prevTodo.label);
+          setUpdateButton({ update: true, id: prevTodo.id });
+        }
+        return { ...prevTodo };
+      });
+    });
+  };
+
+  const update = () => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((prevTodo) => {
+        if (prevTodo.id === updateButton.id) {
+          return {
+            ...prevTodo,
+            label: text,
+          };
+        }
+        return prevTodo;
+      });
+    });
+    setUpdateButton({ update: false, id: 0 });
+    setText('');
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -86,7 +122,7 @@ const Home: NextPage = () => {
           {todos.map((todo, index) => (
             <li key={todo.id}>
               <input type='checkbox' value={todo.id} onChange={toggle} checked={todo.isDone} />
-              <button>{todo.label}</button>
+              <button onClick={() => edit(todo.id)}>{todo.label}</button>
               <button className='border border-red-500' onClick={() => remove(index)}>
                 削除
               </button>
@@ -97,8 +133,8 @@ const Home: NextPage = () => {
 
       <Footer>
         <div>
-          <input className='border border-gray' value={text} onChange={input} type='text' />
-          <button onClick={add}>追加</button>
+          <input className='border border-gray' value={text} onChange={input} ref={ref} type='text' />
+          <button onClick={() => (updateButton.update ? update() : add())}>追加</button>
         </div>
       </Footer>
     </div>
