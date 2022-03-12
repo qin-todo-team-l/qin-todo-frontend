@@ -1,5 +1,5 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-export const Footer = () => {
-  return <div>Footer</div>;
+export const Footer: React.VFC<{ children: ReactNode }> = ({ children }) => {
+  return <div>{children}</div>;
 };
